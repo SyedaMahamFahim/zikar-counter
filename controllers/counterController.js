@@ -37,14 +37,21 @@ exports.updateCounter = catchAsyncError(async (req, res, next) => {
   if (!counter) {
     return next(new ErrorHandler("Counter not found", 404));
   }
-  const {count}=counter
+  const {count,isCompleted}=counter
   let totalCount = count;
+
+  var setCompleted=isCompleted
+  if(totalCount<req.body.goal){
+    setCompleted=false
+  }else if(totalCount>=req.body.goal){
+    setCompleted=true
+  }
 
   const updatedCounter = await Counter.findByIdAndUpdate(
     req.params.id, {
       description: req.body.description,
       goal: req.body.goal,
-      isCompleted: totalCount >= req.body.goal ? true : false,
+      isCompleted: setCompleted,
 
     },{
       new: true,
@@ -92,7 +99,7 @@ exports.deleteCounter=catchAsyncError(async(req,res,next)=>{
 exports.addAllocation = catchAsyncError(async (req, res, next) => {
   let counter = await Counter.findById(req.params.id);
 
-  const { goal, count } = counter;
+  const { goal, count,isCompleted } = counter;
 
   if (!counter) {
     return next(new ErrorHandler("Counter not found", 404));
@@ -106,12 +113,20 @@ exports.addAllocation = catchAsyncError(async (req, res, next) => {
     totalCount += allocation.count;
   });
 
+  var setCompleted=isCompleted
+  if(totalCount<goal){
+    setCompleted=false
+  }else if(totalCount>=goal){
+    setCompleted=true
+  }
+  
+
   counter = await Counter.findByIdAndUpdate(
     req.params.id,
     {
       allocations: [...counter.allocations, ...allocations],
       count: totalCount,
-      isCompleted: totalCount >= goal ? true : false,
+      isCompleted: setCompleted,
     },
     {
       new: true,
@@ -131,7 +146,7 @@ exports.deleteAllocationCounter = catchAsyncError(async (req, res, next) => {
   let counter = await Counter.findById(req.params.id);
 
   const { allocationId } = req.body;
-  const { goal, count, allocations } = counter;
+  const { goal, count, allocations,isCompleted } = counter;
 
   if (!counter) {
     return next(new ErrorHandler("Counter not found", 404));
@@ -150,13 +165,19 @@ exports.deleteAllocationCounter = catchAsyncError(async (req, res, next) => {
   }
 
   
-
+  var setCompleted=isCompleted
+  if(totalCount<goal){
+    setCompleted=false
+  }else if(totalCount>=goal){
+    setCompleted=true
+  }
+  
   counter = await Counter.findByIdAndUpdate(
     req.params.id,
     {
       allocations: [...newAllocations],
       count: totalCount,
-      isCompleted: totalCount >= goal ? true : false,
+      isCompleted: setCompleted,
     },
     {
       new: true,
