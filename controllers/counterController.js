@@ -44,7 +44,7 @@ exports.updateCounter = catchAsyncError(async (req, res, next) => {
     req.params.id, {
       description: req.body.description,
       goal: req.body.goal,
-      isCompleted: totalCount === req.body.goal ? true : false,
+      isCompleted: totalCount >= req.body.goal ? true : false,
 
     },{
       new: true,
@@ -111,7 +111,7 @@ exports.addAllocation = catchAsyncError(async (req, res, next) => {
     {
       allocations: [...counter.allocations, ...allocations],
       count: totalCount,
-      isCompleted: totalCount === goal ? true : false,
+      isCompleted: totalCount >= goal ? true : false,
     },
     {
       new: true,
@@ -149,12 +149,14 @@ exports.deleteAllocationCounter = catchAsyncError(async (req, res, next) => {
     }
   }
 
+  
+
   counter = await Counter.findByIdAndUpdate(
     req.params.id,
     {
       allocations: [...newAllocations],
       count: totalCount,
-      isCompleted: totalCount === goal ? true : false,
+      isCompleted: totalCount >= goal ? true : false,
     },
     {
       new: true,
