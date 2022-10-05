@@ -1,10 +1,13 @@
 import { styled } from "@mui/material/styles";
 import { Box} from "@mui/material";
 
-const DisplayCounterContainer = styled(Box)(() => ({
+const DisplayCounterContainer = styled(Box)(({theme}) => ({
   background: "#effcef",
   padding: "4rem",
   borderRadius: "34px",
+  [theme.breakpoints.down("sm")]: {
+    padding: "2rem",
+  },
 }));
 
 const DisplayCounterRow = styled(Box)(() => ({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useCallback} from "react";
 import FormInput from "../../FormInput/FormInput";
 import {
   Button,
@@ -39,7 +39,6 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -47,7 +46,9 @@ const modalStyle = {
 
 const AddAllocations = ({ getCountValue, getNewCountValue, getStatus }) => {
   const { id } = useParams();
+  // eslint-disable-next-line
   const [newCountValue, setNewCountValue] = useState(getCountValue);
+  
   const [updatedStatus, setUpdatedStatus] = useState(getStatus);
   const [open, setOpen] = useState(false);
   const [allocationId, setAllocationId] = useState("");
@@ -124,6 +125,31 @@ const AddAllocations = ({ getCountValue, getNewCountValue, getStatus }) => {
     setOpen(false);
   };
 
+  useCallback(() => {
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get(`${baseUrl}/counter/get/${id}`);
+        setAllAllocations(data.counter.allocations);
+
+        console.log(data.counter);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        Notification(
+          false,
+          true,
+          "Something went wrong.Please try again later"
+        );
+      }
+
+      setLoading(false);
+    };
+    getData();
+  }, [id]);
+
+
+  
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
@@ -145,8 +171,9 @@ const AddAllocations = ({ getCountValue, getNewCountValue, getStatus }) => {
       setLoading(false);
     };
     getData();
-    getNewCountValue(newCountValue, updatedStatus);
 
+    getNewCountValue(newCountValue, updatedStatus);
+    // eslint-disable-next-line
   }, [id]);
   return (
     <>

@@ -4,21 +4,25 @@ import { Box, Paper } from "@mui/material";
 
 const LayoutBox = styled(Box)(() => ({
   display: "flex",
-  background: "black",
   height: "100%",
   flexWrap: "wrap",
   alignContent: "center",
   justifyContent: "center",
 }));
 
-const PaperElevationThree = styled(Paper)(() => ({
+const PaperElevationThree = styled(Paper)(({theme}) => ({
   borderRadius: "44px",
   marginTop: "44px",
   marginBottom: "44px",
   paddingLeft: "30px",
   paddingRight: "30px",
   width: "600px",
-  height:"90%"
+  height:"90%",
+  [theme.breakpoints.down("sm")]: {
+    borderRadius: "0px",
+    width: "fill-available",
+    boxShadow: "none",
+  },
 }));
 
 
