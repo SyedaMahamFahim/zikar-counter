@@ -27,7 +27,6 @@ const LandingPageSection = () => {
           whatsAppText:form.whatsAppText
         });
         const { counterId } = data;
-        console.log(counterId);
         setLoading(false);
         Notification(true, false, "Goal Created Successfully");
         EmptyingAllInputs()

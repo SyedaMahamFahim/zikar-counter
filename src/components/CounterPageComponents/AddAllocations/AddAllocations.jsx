@@ -91,7 +91,6 @@ const AddAllocations = ({ getCountValue, getNewCountValue, getStatus }) => {
       Notification(true, false, "Count Added to Counter");
       EmptyingAllInputs();
     } catch (error) {
-      console.log(error);
       Notification(false, true, error.response.data.message);
       setCreateAllocationLoading(false);
     }
@@ -132,10 +131,8 @@ const AddAllocations = ({ getCountValue, getNewCountValue, getStatus }) => {
         const { data } = await axios.get(`${baseUrl}/counter/get/${id}`);
         setAllAllocations(data.counter.allocations);
 
-        console.log(data.counter);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         Notification(
           false,
           true,
@@ -157,10 +154,8 @@ const AddAllocations = ({ getCountValue, getNewCountValue, getStatus }) => {
         const { data } = await axios.get(`${baseUrl}/counter/get/${id}`);
         setAllAllocations(data.counter.allocations);
 
-        console.log(data.counter);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         Notification(
           false,
           true,

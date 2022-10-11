@@ -61,15 +61,14 @@ const CounterPageSection = () => {
       try {
         const { data } = await axios.get(`${baseUrl}/counter/get/${id}`);
         setCounterData(data.counter);
+        console.log(data.counter);	
         setCounterForm({
           description: data.counter.description,
           goal: data.counter.goal,
           whatsAppText:data.counter.whatsAppText
         });
-        console.log(data.counter);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         Notification(
           false,
           true,
@@ -95,7 +94,6 @@ const CounterPageSection = () => {
         `${baseUrl}/counter/update/${id}`,
         updateCounterForm
       );
-      console.log(data);
       setCounterData(data.updatedCounter);
       setLoading(false);
       EmptyingAllInputs();
@@ -118,11 +116,9 @@ const CounterPageSection = () => {
   };
 
   const getNewCountValue = (newCount,newStatus) => {
-    console.log("this is status on counter page", newCount);
 
     setNewCountValue(newCount);
     setNewStatus(newStatus)
-    console.log("this is status on counter page", newStatus);
   };
   return (
     <>
