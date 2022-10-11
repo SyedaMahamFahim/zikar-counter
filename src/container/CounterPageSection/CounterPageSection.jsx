@@ -61,7 +61,6 @@ const CounterPageSection = () => {
       try {
         const { data } = await axios.get(`${baseUrl}/counter/get/${id}`);
         setCounterData(data.counter);
-        console.log(data.counter);	
         setCounterForm({
           description: data.counter.description,
           goal: data.counter.goal,
