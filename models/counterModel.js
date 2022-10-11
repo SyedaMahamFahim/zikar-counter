@@ -10,6 +10,10 @@ const counterModel = mongoose.Schema(
       type: Number,
       required: [true, "Please enter the counter value"],
     },
+    whatsAppText:{
+      type: String,
+      required: [true, "Please enter the WhatsApp text"],
+    },
     isCompleted: {
       type: Boolean,
       default: false,
