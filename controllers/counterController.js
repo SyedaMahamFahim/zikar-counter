@@ -4,10 +4,11 @@ const ErrorHandler = require("../utils/errorhandler");
 
 // Create a new counter
 exports.createCounter = catchAsyncError(async (req, res, next) => {
-  const { goal, description } = req.body;
+  const { goal, description ,whatsAppText} = req.body;
   const counter = await Counter.create({
     goal,
     description,
+    whatsAppText
   });
 
   if (!counter) {
@@ -51,6 +52,7 @@ exports.updateCounter = catchAsyncError(async (req, res, next) => {
     req.params.id, {
       description: req.body.description,
       goal: req.body.goal,
+      whatsAppText: req.body.whatsAppText,
       isCompleted: setCompleted,
 
     },{
@@ -99,7 +101,7 @@ exports.deleteCounter=catchAsyncError(async(req,res,next)=>{
 exports.addAllocation = catchAsyncError(async (req, res, next) => {
   let counter = await Counter.findById(req.params.id);
 
-  const { goal, count,isCompleted } = counter;
+  const { goal, count,isCompleted, } = counter;
 
   if (!counter) {
     return next(new ErrorHandler("Counter not found", 404));
