@@ -51,6 +51,7 @@ const CounterPageSection = () => {
   const [updateCounterForm, setCounterForm] = useState({
     description: "",
     goal: "",
+    whatsAppText: "",
   });
 
   // Get Counter Data
@@ -63,6 +64,7 @@ const CounterPageSection = () => {
         setCounterForm({
           description: data.counter.description,
           goal: data.counter.goal,
+          whatsAppText:data.counter.whatsAppText
         });
         console.log(data.counter);
         setLoading(false);
@@ -150,7 +152,7 @@ const CounterPageSection = () => {
                 </DisplayCounterRightIconBox>
                 <DisplayCounterRightIconBox>
                   <WhatsAppBtn
-                    text={`Please click the link to manage ${counterData.description} counter`}
+                    text={counterData.whatsAppText}
                   />
                 </DisplayCounterRightIconBox>
               </DisplayCounterRightBox>
@@ -201,6 +203,13 @@ const CounterPageSection = () => {
                       value={updateCounterForm.goal}
                       onChange={handleCounterUpdateDataChange}
                     />
+                     <FormInput
+            type="text"
+            name={"whatsAppText"}
+            label={"WhatsApp Share Link Description"}
+            value={updateCounterForm.whatsAppText}
+            onChange={handleCounterUpdateDataChange}
+          />
                     <br />
                     <Button variant="contained" type="submit">
                       {loading ? (

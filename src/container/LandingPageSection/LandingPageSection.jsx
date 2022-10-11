@@ -11,6 +11,7 @@ const LandingPageSection = () => {
     const [form, setForm] = useState({
       description: "",
       goal: "",
+      whatsAppText:""
     });
   
     const handleChange = (e) => {
@@ -23,6 +24,7 @@ const LandingPageSection = () => {
         const { data } = await axios.post(`${baseUrl}/counter/create`, {
           description: form.description,
           goal: parseInt(form.goal),
+          whatsAppText:form.whatsAppText
         });
         const { counterId } = data;
         console.log(counterId);
@@ -62,6 +64,13 @@ const LandingPageSection = () => {
             name={"goal"}
             label={"Goal - Desired total count"}
             value={form.goal}
+            onChange={handleChange}
+          />
+          <FormInput
+            type="text"
+            name={"whatsAppText"}
+            label={"WhatsApp Share Link Description"}
+            value={form.whatsAppText}
             onChange={handleChange}
           />
           <br />

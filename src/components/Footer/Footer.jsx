@@ -13,7 +13,7 @@ const Footer = () => {
           align="center"
           marginTop={"4rem"}
         >
-          For the pleasure of Allah, By NiftBit
+          For the pleasure of Allah
         </Typography>
       </Box>
     </>
