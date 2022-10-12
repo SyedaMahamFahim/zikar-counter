@@ -4,8 +4,26 @@ import {Link} from "react-router-dom";
 const Title = () => {
   return (
     <>
+    <Box style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignContent: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop:"20px"
+    }}>
+     <img src="/assests/logo.jpg" alt="image" border="0"
+     width="200" height="200" 
+     
+     />
+     
+
+    </Box>
       <Box p={4}>
-        <Link to="/" >
+        <Link to="/" style={{
+          color: 'black',
+          textDecoration: 'none'
+        }}>
         <Typography
           variant="h4"
           component="h4"
